@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 String city = data.getStringExtra("city");
                 //CityCard newCityCard = new CityCard(city);
-                citiesArrayList.add(newCityCard);
+                //citiesArrayList.add(newCityCard);
                 citiesAdapter.notifyItemInserted(citiesArrayList.size() - 1);
             }
         }
