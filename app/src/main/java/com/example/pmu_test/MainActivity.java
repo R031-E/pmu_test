@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_CITY_REQUEST){
             if (resultCode == RESULT_OK) {
                 String city = data.getStringExtra("city");
-                CityCard newCityCard = new CityCard(city);
+                //CityCard newCityCard = new CityCard(city);
                 citiesArrayList.add(newCityCard);
                 citiesAdapter.notifyItemInserted(citiesArrayList.size() - 1);
             }
