@@ -27,9 +27,10 @@ import org.json.JSONObject;
 public class WeatherData extends AppCompatActivity {
     private String apiKey = "&appid=d77b3f0e8e7ad3d429f208e537c5b5b9";
     private String url;
-    TextView cityTextView;
+    TextView cityTextView, temperatureTextView,
+            humidityTextView, windTextView,
+            pressureTextView, visibilityTextView, weatherTextView;
     ImageView weatherImageView;
-    TextView temperatureTextView;
 
     private GestureDetector gestureDetector;
     @Override
@@ -79,6 +80,11 @@ public class WeatherData extends AppCompatActivity {
         cityTextView = findViewById(R.id.textViewCity);
         weatherImageView = findViewById(R.id.imageViewWeatherIcon);
         temperatureTextView = findViewById(R.id.textViewTemperature);
+        humidityTextView = findViewById(R.id.textViewHumidity);
+        windTextView = findViewById(R.id.textViewWindSpeed);
+        pressureTextView = findViewById(R.id.textViewPressure);
+        visibilityTextView = findViewById(R.id.textViewVisibility);
+        weatherTextView = findViewById(R.id.textViewMainDescription);
 
 
         cityTextView.setText(city);
@@ -98,15 +104,28 @@ public class WeatherData extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     String iconUrl = "https://openweathermap.org/img/w/" + response.getJSONArray("weather").getJSONObject(0).getString("icon") + ".png";
-                    String weather = response.getJSONArray("weather").getJSONObject(0).getString("description");
-                    String temperature = response.getJSONObject("main").getString("temp");
-                    int tmp = (int) Math.round(Double.parseDouble(temperature));
-                    temperature = String.valueOf(tmp);
+                    String weather = response.getJSONArray("weather").getJSONObject(0).getString("main");
+                    double tmp = response.getJSONObject("main").getDouble("temp");
+                    int humidity = response.getJSONObject("main").getInt("humidity");
+                    double wind = response.getJSONObject("wind").getDouble("speed");
+                    int pressure = response.getJSONObject("main").getInt("pressure");
+                    int visibility = response.getInt("visibility");
 
+                    int temperature = (int) Math.round(tmp);
 
+                    String temperatureString = String.valueOf(temperature) + " °C";
+                    String humidityString = String.valueOf(humidity) + "%";
+                    String windString = String.valueOf(wind) + " m/s";
+                    String pressureString = String.valueOf(pressure) + " hPa";
+                    String visibilityString = String.valueOf(visibility) + " m";
                     Picasso.get().load(iconUrl).into(weatherImageView);
-                    //weatherTextView.setText(weather);
-                    temperatureTextView.setText(temperature + "°C");
+                    weatherTextView.setText(weather);
+                    temperatureTextView.setText(temperatureString);
+                    humidityTextView.setText(humidityString);
+                    windTextView.setText(windString);
+                    pressureTextView.setText(pressureString);
+                    visibilityTextView.setText(visibilityString);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(WeatherData.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();

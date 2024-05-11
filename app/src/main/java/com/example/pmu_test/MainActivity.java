@@ -27,9 +27,8 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
-
 public class MainActivity extends AppCompatActivity {
-    //TODO: добавить Realm
+    //TODO: добавить Room
     //TODO: реализовать CRUD операции
     //TODO: реализовать меню настроек со сменой локализации
     static final int ADD_CITY_REQUEST = 0;
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         searchText = findViewById(R.id.search_text);
         TextView my_location_card = findViewById(R.id.my_location_card);
 
-        citiesArrayList.add(new CityCard("Moscow"));
+        //citiesArrayList.add(new CityCard("Moscow"));
         //citiesAdapter.notifyItemInserted(citiesArrayList.size() - 1);
         setUpRecyclerView();
 

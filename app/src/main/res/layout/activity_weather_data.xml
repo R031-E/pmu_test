@@ -46,19 +46,27 @@
             android:id="@+id/textViewCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/button_container"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textStyle="bold"
             android:text="City Name"
-            android:textColor="@color/colorPrimary"
-            android:textSize="40sp"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:background="@drawable/rounded_edittext"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="52dp" />
+            android:layout_marginTop="16dp" />
 
         <TextView
             android:id="@+id/textViewTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimary"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_edittext"
             android:text="Temperature"
-            android:textSize="48sp"
+            android:textSize="40sp"
             android:layout_below="@id/textViewCity"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"/>
@@ -69,7 +77,92 @@
             android:layout_height="100dp"
             android:layout_below="@id/textViewTemperature"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:foregroundGravity="center"/>
+
+        <TextView
+            android:id="@+id/textViewMainDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_edittext"
+            android:text="Main"
+            android:textSize="40sp"
+            android:layout_below="@id/imageViewWeatherIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"/>
+
+        <GridLayout
+            android:id="@+id/weather_data_grid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="2"
+            android:columnCount="2"
+            android:padding="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/textViewMainDescription"
+            android:useDefaultMargins="true">
+
+            <TextView
+                android:id="@+id/textViewHumidity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/rounded_edittext"
+                android:drawableStart="@drawable/ic_humidity"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="Humidity"
+                android:gravity="center_vertical|end"/>
+
+            <TextView
+                android:id="@+id/textViewWindSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/rounded_edittext"
+                android:drawableStart="@drawable/ic_wind"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="Wind"
+                android:gravity="center_vertical|end"/>
+
+            <TextView
+                android:id="@+id/textViewPressure"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/rounded_edittext"
+                android:drawableStart="@drawable/ic_gauge_pressure"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="Pressure"
+                android:gravity="center_vertical|end"/>
+
+            <TextView
+                android:id="@+id/textViewVisibility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:background="@drawable/rounded_edittext"
+                android:drawableStart="@drawable/ic_visibility"
+                android:padding="16dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="Visibility"
+                android:gravity="center_vertical|end"/>
+
+        </GridLayout>
+
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

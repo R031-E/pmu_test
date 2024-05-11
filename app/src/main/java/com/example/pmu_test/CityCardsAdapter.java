@@ -70,14 +70,6 @@ public class CityCardsAdapter extends  RecyclerView.Adapter<CityCardsAdapter.Vie
         //showUndoSnackbar();
     }
 
-    /*private void showUndoSnackbar() {
-        View view = mActivity.findViewById(R.id.coordinator_layout);
-        Snackbar snackbar = Snackbar.make(view, R.string.snack_bar_text,
-                Snackbar.LENGTH_LONG);
-        snackbar.setAction(R.string.snack_bar_undo, v -> undoDelete());
-        snackbar.show();
-    }*/
-
     private void undoDelete() {
         cities.add(mRecentlyDeletedItemPosition,
                 mRecentlyDeletedItem);
