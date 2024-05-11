@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBG"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/HeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:textColor="@android:color/white"
+        android:textSize="35sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/search_text"
+        android:text="@string/weather"/>
+
+    <EditText
+        android:id="@+id/search_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_edittext"
+        android:drawableStart="@drawable/ic_search"
+        android:hint="@string/search"
+        android:inputType="text"
+        android:maxLines="1"
+        android:padding="20dp"
+        android:textColor="@android:color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/HeaderText"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="-5dp"
+        app:layout_constraintStart_toStartOf="@id/search_text"
+        app:layout_constraintTop_toBottomOf="@id/search_text"
+        app:layout_constraintEnd_toEndOf="@id/search_text"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="@color/colorButtonMedium"
+        app:cardMaxElevation="12dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="true"
+        >
+
+        <TextView
+            android:id="@+id/my_location_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/my_location"
+            android:layout_gravity="center_vertical|start"
+            android:layout_margin="20dp"
+            app:layout_constraintEnd_toEndOf="@id/card_view"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:drawableEnd="@drawable/ic_geopin"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cities_cards"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="252dp"
+        app:layout_constraintStart_toStartOf="@+id/card_view"
+        app:layout_constraintTop_toBottomOf="@+id/card_view"
+        app:layout_constraintEnd_toEndOf="@+id/card_view"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
