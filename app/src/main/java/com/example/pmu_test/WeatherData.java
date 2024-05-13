@@ -42,9 +42,6 @@ public class WeatherData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_data);
-
-
-
         RelativeLayout buttonContainer = findViewById(R.id.button_container);
         Button cancelButton = findViewById(R.id.cancel_button);
         Button addButton = findViewById(R.id.add_button);
@@ -73,6 +70,7 @@ public class WeatherData extends AppCompatActivity {
                     }
                     else if (isOutdated && timestamp != 0) {
                         Intent intent = new Intent();
+                        intent.putExtra("id", id);
                         intent.putExtra("city", city);
                         intent.putExtra("temperature", temperatureTextView.getText().toString());
                         intent.putExtra("humidity", humidityTextView.getText().toString());
@@ -130,6 +128,8 @@ public class WeatherData extends AppCompatActivity {
         visibilityTextView = findViewById(R.id.textViewVisibility);
         weatherTextView = findViewById(R.id.textViewMainDescription);
 
+        Log.d("WeatherData", "Humidity " + humidity);
+        Log.d("WeatherData", "timestamp " + timestamp);
 
         cityTextView.setText(city);
         if ((System.currentTimeMillis()/1000 - timestamp) > 1200) {

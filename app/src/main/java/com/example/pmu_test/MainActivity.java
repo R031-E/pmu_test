@@ -15,6 +15,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 getLocation();
             };
+        });
+
+        ImageButton infoButton = findViewById(R.id.info_button);
+        infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, InfoActivity.class);
+                startActivity(intent);
+            }
         });
 
         searchText.setOnKeyListener(new View.OnKeyListener() {
@@ -240,13 +250,18 @@ public class MainActivity extends AppCompatActivity {
             String temperature = data.getStringExtra("temperature");
             String description = data.getStringExtra("description");
             String humidity = data.getStringExtra("humidity");
+            Log.d("MainActivity", "New humidity " + humidity);
             String wind = data.getStringExtra("wind");
             String pressure = data.getStringExtra("pressure");
             String visibility = data.getStringExtra("visibility");
+            int id = data.getIntExtra("id", -2);
             long lastRequested = data.getLongExtra("timestamp", 0);
             String iconId = data.getStringExtra("icon_id");
             CityCard updateCityCard = new CityCard(city, lastRequested, temperature, description, humidity, wind, pressure, visibility, iconId);
+            updateCityCard.setId(id);
             mCityViewModel.update(updateCityCard);
+            Log.d("MainActivity", "Updated city: " + city);
+            Log.d("Current timstamp", Long.toString(System.currentTimeMillis()/1000));
         }
     }
 
