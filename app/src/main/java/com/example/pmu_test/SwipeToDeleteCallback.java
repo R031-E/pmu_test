@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,7 +16,7 @@ import com.example.pmu_test.CityCardsAdapter;
 
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     private CityCardsAdapter mAdapter;
-
+    //private ViewModel mViewModel;
     private Drawable icon;
     private final Drawable background;
 
@@ -23,6 +24,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     public SwipeToDeleteCallback(CityCardsAdapter adapter) {
         super(0,ItemTouchHelper.LEFT);
         mAdapter = adapter;
+        //mViewModel = viewModel;
         icon = ContextCompat.getDrawable(mAdapter.getContext(),
                 R.drawable.ic_delete_forever);
         background = ContextCompat.getDrawable(mAdapter.getContext(),
@@ -39,7 +41,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
         if (direction == ItemTouchHelper.LEFT) {
             int position = viewHolder.getAdapterPosition();
-            mAdapter.deleteItem(position);
+            //mViewModel.deleteItem(position);
         }
     }
 

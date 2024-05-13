@@ -2,6 +2,7 @@ package com.example.pmu_test;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,33 +33,67 @@ public class WeatherData extends AppCompatActivity {
             pressureTextView, visibilityTextView, weatherTextView;
     ImageView weatherImageView;
 
+    private String iconIdField;
+
     private GestureDetector gestureDetector;
+
+    private Boolean isOutdated;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_data);
 
+
+
+        RelativeLayout buttonContainer = findViewById(R.id.button_container);
+        Button cancelButton = findViewById(R.id.cancel_button);
+        Button addButton = findViewById(R.id.add_button);
+        // Получаем данные из MainActivity
+        int id = getIntent().getIntExtra("id", -2);
+        String city = getIntent().getStringExtra("city");
+        String url = getIntent().getStringExtra("url");
+        String temperature = getIntent().getStringExtra("temperature");
+        String humidity = getIntent().getStringExtra("humidity");
+        String wind = getIntent().getStringExtra("wind");
+        String pressure = getIntent().getStringExtra("pressure");
+        String visibility = getIntent().getStringExtra("visibility");
+        String description = getIntent().getStringExtra("description");
+        long timestamp = getIntent().getLongExtra("timestamp", 0);
+        String iconId = getIntent().getStringExtra("icon_id");
+        int position = getIntent().getIntExtra("position", -2);
         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
                 final int SWIPE_MIN_DISTANCE = 120;
                 final int SWIPE_THRESHOLD_VELOCITY = 200;
                 if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                    // свайп вправо
-                    finish();
+                    if (isOutdated && timestamp == 0) {
+                        setResult(RESULT_CANCELED);
+                        finish();
+                    }
+                    else if (isOutdated && timestamp != 0) {
+                        Intent intent = new Intent();
+                        intent.putExtra("city", city);
+                        intent.putExtra("temperature", temperatureTextView.getText().toString());
+                        intent.putExtra("humidity", humidityTextView.getText().toString());
+                        intent.putExtra("wind", windTextView.getText().toString());
+                        intent.putExtra("pressure", pressureTextView.getText().toString());
+                        intent.putExtra("visibility", visibilityTextView.getText().toString());
+                        intent.putExtra("description", weatherTextView.getText().toString());
+                        intent.putExtra("timestamp", System.currentTimeMillis()/1000);
+                        intent.putExtra("icon_id", iconIdField);
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                    else{
+                        setResult(RESULT_CANCELED);
+                        finish();
+                    }
                     return true;
                 }
                 return false;
             }
         });
-
-        RelativeLayout buttonContainer = findViewById(R.id.button_container);
-        Button cancelButton = findViewById(R.id.cancel_button);
-        Button addButton = findViewById(R.id.add_button);
-        // Получаем данные из MainActivity
-        String city = getIntent().getStringExtra("city");
-        String url = getIntent().getStringExtra("url");
-        int position = getIntent().getIntExtra("position", -2);
         if (position != -2) {
             buttonContainer.setVisibility(View.GONE);
         }
@@ -72,8 +107,17 @@ public class WeatherData extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setResult(RESULT_OK,
-                        new Intent().putExtra("city", city));
+                Intent intent = new Intent();
+                intent.putExtra("city", city);
+                intent.putExtra("temperature", temperatureTextView.getText().toString());
+                intent.putExtra("humidity", humidityTextView.getText().toString());
+                intent.putExtra("wind", windTextView.getText().toString());
+                intent.putExtra("pressure", pressureTextView.getText().toString());
+                intent.putExtra("visibility", visibilityTextView.getText().toString());
+                intent.putExtra("description", weatherTextView.getText().toString());
+                intent.putExtra("timestamp", System.currentTimeMillis()/1000);
+                intent.putExtra("icon_id", iconIdField);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -88,7 +132,22 @@ public class WeatherData extends AppCompatActivity {
 
 
         cityTextView.setText(city);
-        getWeatherData(city, url);
+        if ((System.currentTimeMillis()/1000 - timestamp) > 1200) {
+            Log.d("WeatherData", "Weather data is outdated");
+            isOutdated = true;
+            getWeatherData(city, url);
+        }
+        else {
+            Log.d("WeatherData", "Weather data is not outdated");
+            isOutdated = false;
+            temperatureTextView.setText(temperature);
+            humidityTextView.setText(humidity);
+            windTextView.setText(wind);
+            pressureTextView.setText(pressure);
+            visibilityTextView.setText(visibility);
+            weatherTextView.setText(description);
+            Picasso.get().load("https://openweathermap.org/img/w/" + iconId + ".png").into(weatherImageView);
+        }
     }
 
     @Override
@@ -103,6 +162,7 @@ public class WeatherData extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
+                    iconIdField = response.getJSONArray("weather").getJSONObject(0).getString("icon");
                     String iconUrl = "https://openweathermap.org/img/w/" + response.getJSONArray("weather").getJSONObject(0).getString("icon") + ".png";
                     String weather = response.getJSONArray("weather").getJSONObject(0).getString("main");
                     double tmp = response.getJSONObject("main").getDouble("temp");

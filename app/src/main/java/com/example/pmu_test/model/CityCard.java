@@ -25,13 +25,11 @@ public class CityCard {
     private String visibility;
     @ColumnInfo(name = "last_requested")
     private long lastRequested;
-    // Constructor
-    public CityCard(String city, long lastRequested) {
-        this.city = city;
-        this.lastRequested = lastRequested;
-    }
 
-    public CityCard(String city, long lastRequested, String temperature, String description, String humidity, String wind, String pressure, String visibility) {
+    @ColumnInfo(name = "icon_id")
+    private String iconId;
+    // Constructor
+    public CityCard(String city, long lastRequested, String temperature, String description, String humidity, String wind, String pressure, String visibility, String iconId) {
         this.city = city;
         this.lastRequested = lastRequested;
         this.temperature = temperature;
@@ -40,9 +38,16 @@ public class CityCard {
         this.wind = wind;
         this.pressure = pressure;
         this.visibility = visibility;
+        this.iconId = iconId;
     }
 
     // Getter and Setter
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
+    }
     public String getCity() {
         return city;
     }
@@ -98,5 +103,12 @@ public class CityCard {
     }
     public void setLastRequested(long lastRequested) {
         this.lastRequested = lastRequested;
+    }
+    public String getIconId() {
+        return iconId;
+    }
+
+    public void setIconId(String iconId) {
+        this.iconId = iconId;
     }
 }

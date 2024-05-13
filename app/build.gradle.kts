@@ -50,4 +50,6 @@ dependencies {
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
+    //RxJava3 support for Room
+    implementation("androidx.room:room-rxjava3:$room_version")
 }
