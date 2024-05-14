@@ -163,6 +163,16 @@
 
         </GridLayout>
 
+        <TextView
+            android:id="@+id/shake_to_update_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/shake_to_update_hint"
+            android:textSize="20sp"
+            android:layout_below="@id/weather_data_grid"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="100dp"/>
+
 
     </RelativeLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

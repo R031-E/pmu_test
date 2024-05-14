@@ -49,4 +49,6 @@
     <string name="my_location">My Location</string>
     <string name="add_button">Add</string>
     <string name="cancel_button">Cancel</string>
+    <string name="shake_to_update_hint">Shake phone to force update data</string>
+    <string name="data_updated_with_shake_hint">Data updated</string>
 </resources>
